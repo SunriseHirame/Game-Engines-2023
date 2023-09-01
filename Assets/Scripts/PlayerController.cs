@@ -87,42 +87,67 @@ public class PlayerController : MonoBehaviour
 
     public void GetHurt(int hurtyness = 1)
     {
+        // Check iff we got hurt, but the hurt was not significant
+        // In other words if we would not take damage, return
         if (hurtyness <= 0) return;
 
         Debug.Log("Got Hurt!");
+        // Player the hurt particles! Blood everywhere!
         m_hurtParticles.Play();
+        // Do nothing else if we have already suffered a terrible fate.
         if (_currentHealth <= 0) return;
 
+        // Deduct hp equal to the hurtyness
         _currentHealth -= hurtyness;
 
+        // Check if this was too much for us
         if (_currentHealth <= 0)
         {
             Debug.Log("Got very hurt");
+            // Following to lines can be commented out to make the player stop when they die
             //var rigidbody = GetComponent<Rigidbody2D>();
             //rigidbody.isKinematic = true;
+            
+            // Start to reload the level with a coroutine
+            // This allows us to show the New Text screen.
             StartCoroutine(RestartCurrentLevel());
         }
     }
 
+    // Context Menu allows us to show something in the Unity Editor in this components kebab menu.
     [ContextMenu ("Just Do It")]
     public void JustDoIt()
     {
+        // Makes the player take damage equal to their remaining health
         GetHurt(_currentHealth);
     }
 
     private IEnumerator RestartCurrentLevel()
     {
+        // Load a new scene asyncronously, allowing us to still keep playing or for us to show some stuff on screen
         var handle = SceneManager.LoadSceneAsync(gameObject.scene.buildIndex);
+        // Do not activate the scene immediately when it gets loaded
         handle.allowSceneActivation = false;
 
+        // Create a slow motion effect on death
         Time.timeScale = 0.1f;
+        // Make the physics smoother during the slow motion
+        // This is required as the physics tick rate is based on the in game time
+        // Which we have slowed on the previous line
         Time.fixedDeltaTime *= 0.1f;
 
+        // Wait for 20 seconds REAL TIME. Ooops. Maybe we should reduce this again?
+        // I guess is good that we no longer use the in game time.
         yield return new WaitForSecondsRealtime (20f);
 
+        // Restore the time scale to 1 which is default
         Time.timeScale = 1f;
+        // Restore the fixed time step to 0.02f which is default
         Time.fixedDeltaTime = 0.02f;
 
+        // Finally allow the loaded scene to actually activate.
+        // In practice this means the we unload the current scene
+        // And active the new scene 
         handle.allowSceneActivation = true;
     }
 }
