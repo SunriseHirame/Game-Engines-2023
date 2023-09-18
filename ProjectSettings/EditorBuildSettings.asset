@@ -6,16 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/_Games/BallGame/Scenes/MainMenu.unity
     guid: d3ec551cb5d34244883ff0ee5e635825
   - enabled: 1
-    path: Assets/Scenes/Level_001.unity
+    path: Assets/_Games/BallGame/Scenes/Level_001.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Level_002.unity
+    path: Assets/_Games/BallGame/Scenes/Level_002.unity
     guid: 9e6f3bce9c97dd64b8a9fb163270c624
   - enabled: 1
-    path: Assets/Scenes/Level_003.unity
+    path: Assets/_Games/BallGame/Scenes/Level_003.unity
     guid: ecc7cce52a6d4dc4a809e83a83e6dfe7
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
