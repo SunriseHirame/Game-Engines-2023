@@ -4,6 +4,11 @@ public class AiWanderAroundBehavior : IAiBehavior
 {
     private float _timeToWait;
 
+    public float Evaluate(AiAgent agent)
+    {
+        return 1f;
+    }
+
     public void OnStart(AiAgent agent)
     {
         var targetPosition = new Vector3(
@@ -30,5 +35,10 @@ public class AiWanderAroundBehavior : IAiBehavior
 
         _timeToWait = Random.Range(2f, 5f);
         return false;
+    }
+
+
+    public void OnExit(AiAgent agent)
+    {
     }
 }
