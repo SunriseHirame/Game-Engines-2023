@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Games/BallGame/Scenes/Level_003.unity
     guid: ecc7cce52a6d4dc4a809e83a83e6dfe7
+  - enabled: 1
+    path: Assets/_Games/DevilDaggers/Scenes/Level_DevilDaggers.unity
+    guid: eeba910716a974e45b70673e586ea5f0
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

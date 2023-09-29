@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea7fbe6f5ed1e842a383c49aa2f42d6, type: 3}
+  m_Name: ShotgunAttack
+  m_EditorClassIdentifier: 
+  m_daggerPrefab: {fileID: 5449490148403396361, guid: 870c2ef0da6cb2445963d9e086e2116c,
+    type: 3}
+  m_fireRate: 0.7
+  m_projectileCount: 12
+  m_daggerSpawnRotationRandomness: {x: 15, y: 15, z: 0}
+  m_launchSpeed: 35

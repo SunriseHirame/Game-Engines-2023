@@ -7,15 +7,17 @@ TagManager:
   - Goal
   - Platform
   - EnergyOrb
+  - Enemy
+  - Dagger
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
+  - Bullets
+  - Emenies
   - 
   - 
   - 
