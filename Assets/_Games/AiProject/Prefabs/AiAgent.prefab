@@ -74,6 +74,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_navAgent: {fileID: 176313002859691232}
   m_animator: {fileID: 6954557216172409140}
+  m_initialStats:
+    <Energy>k__BackingField: 60
+    <Food>k__BackingField: 60
+    <Water>k__BackingField: 60
   m_stepSound: {fileID: 504083139644639586}
   m_jumpSound: {fileID: 5381651209086294022}
 --- !u!136 &1403249622825977889

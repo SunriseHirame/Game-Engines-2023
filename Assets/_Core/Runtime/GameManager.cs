@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+#if !UNITY_EDITOR
+        Debug.unityLogger.filterLogType = LogType.Error | LogType.Exception;
+#endif
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 

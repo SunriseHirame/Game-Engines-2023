@@ -1,14 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 [System.Serializable]
 public class AgentStats : System.ICloneable
 {
-    public float Energy;
-    public float Food;
-    public float Water;
+    [field: SerializeField][field: FormerlySerializedAs("Energy")] public float Energy { get; set; }
+    [field: SerializeField][field: FormerlySerializedAs("Food")] public float Food { get; set; }
+    [field: SerializeField][field: FormerlySerializedAs("Water")] public float Water { get; set; }
 
     public object Clone()
     {
@@ -62,6 +65,8 @@ public class AiAgent : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log("AI UPDATE");
+
         _currentStats.Energy -= Time.deltaTime * 5f;
         _currentStats.Food -= Time.deltaTime * 1f;
         _currentStats.Water -= Time.deltaTime * 2f;
@@ -105,31 +110,40 @@ public class AiAgent : MonoBehaviour
 
     public void AddStat(string statName, float amount)
     {
-        var statField = typeof(AgentStats).GetField(statName);
-        if (statField == null)
+        var property = typeof(AgentStats).GetProperty(statName);
+        if (property == null)
         {
             Debug.LogError($"AiAgent: No such stat!: {statName}");
             return;
         }
 
-        var value = (float) statField.GetValue(_currentStats);
+        var value = (float) property.GetValue(_currentStats);
         value += amount;
-        statField.SetValue(_currentStats, value);
+        property.SetValue(_currentStats, value);
 
         Debug.Log($"Added Stat: {value - amount} -> {value}");
     }
 
+    private Dictionary<string, Func<float>> _cachedGetters = new Dictionary<string, Func<float>>();
     internal bool TryGetStat(string statName, out float value)
     {
-        var statField = typeof(AgentStats).GetField(statName);
-        if (statField == null)
+        if (!_cachedGetters.TryGetValue(statName, out var del))
         {
-            Debug.LogError($"AiAgent: No such stat!: {statName}");
-            value = 0f;
-            return false;
+            var property = typeof(AgentStats).GetProperty(statName);
+            if (property == null)
+            {
+                Debug.LogError($"AiAgent: No such stat!: {statName}");
+                value = 0f;
+                return false;
+            }
+
+            var method = property.GetGetMethod();
+            del = (Func<float>)method.CreateDelegate(typeof(Func<float>), _currentStats);
+
+            _cachedGetters.Add(statName, del);
         }
 
-        value = (float)statField.GetValue(_currentStats);
+        value = del.Invoke();
         return true;
     }
 
